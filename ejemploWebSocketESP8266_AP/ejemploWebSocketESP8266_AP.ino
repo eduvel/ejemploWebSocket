@@ -32,6 +32,7 @@ void onWebSocketEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsE
     for (int i = 0; i < len; i++) {
         dataReceived[i] = (char)data[i];
     }
+    dataReceived[len]='\0';
     
     Serial.println(dataReceived);
     // Enviar de vuelta el mensaje al cliente
