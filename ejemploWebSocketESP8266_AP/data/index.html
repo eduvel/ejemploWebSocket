@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket en ESP8266</title>
+    <script>
+        var socket = new WebSocket('ws://' + window.location.hostname + ':80/ws');
+        socket.onopen = function() {
+            console.log('Conectado al servidor WebSocket');
+        };
+
+        socket.onmessage = function(event) {
+            console.log('Mensaje recibido del servidor:', event.data);
+            // Mostrar el mensaje recibido en la página
+            var receivedMessage = document.getElementById('received-message');
+            receivedMessage.innerHTML = 'Mensaje recibido del servidor: ' + event.data;
+        };
+
+        socket.onclose = function(event) {
+            console.log('Desconectado del servidor WebSocket:', event.reason);
+        };
+
+        function enviarMensaje() {
+            var mensaje = document.getElementById('mensaje').value;
+            socket.send(mensaje);
+            console.log('Mensaje enviado al servidor:', mensaje);
+        }
+    </script>
+</head>
+<body>
+    <h1>WebSocket en ESP8266</h1>
+    <input type="text" id="mensaje" placeholder="Escribe un mensaje">
+    <button onclick="enviarMensaje()">Enviar al Servidor</button>
+    <div id="received-message"></div>
+</body>
+</html>
